@@ -1,0 +1,8 @@
+<h1>Profile Page</h1>
+<div>
+	<p><%= current_user.first_name %></p>
+	<p><%= current_user.last_name %></p>
+	<p><%= current_user.email %></p>
+</div>
+<h3>My Posts</h3>
+<%= current_user.posts %>

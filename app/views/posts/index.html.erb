@@ -1,0 +1,10 @@
+<h1>Posts</h1>
+<hr>
+<% @posts.each do |post| %>
+	<h3><%= post.title %></h3>
+	<p><%= post.content %></p>
+	<br>
+<% end %> 
+<% if current_user %>
+	<%= link_to "Add Post", new_post_path %>
+<% end %> 

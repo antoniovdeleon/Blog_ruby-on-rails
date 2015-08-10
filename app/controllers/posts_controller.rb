@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
 
+  before_filter :authorize, except: [:index, :show]
+
   # show ALL recipes in db
   def index
     @posts = Post.all
@@ -29,12 +31,32 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])
+    if current_user.posts.include? @post
+      render :edit
+    else
+      redirect_to profile_path
+    end
   end
 
   def update
+    post = Post.find(params[:id])
+    if current_user.posts.include? @post
+        post.update_attributes(post_params)
+        redirect_to post_path(post)
+    else
+      redirect_to profile_path
+    end
   end
 
   def destroy
+    post = Post.find(params[:id])
+    if current_user.posts.include? @post
+        post.destroy(post_params)
+        redirect_to post_path(post)
+    else
+      redirect_to profile_path
+    end
   end
 
   private
